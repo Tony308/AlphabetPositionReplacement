@@ -1,50 +1,41 @@
 package com.qa.main;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 public class Alphabet {
-    private Map<String, Integer> alphabetMapToIndex;
+    private Map<Character, Integer> alphabetMapToIndex;
 
 
     public Alphabet() {
-        alphabetMapToIndex = new HashMap();
+        alphabetMapToIndex = new HashMap<Character, Integer>();
         int counter = 1;
         for (Character letter = 'A'; letter <= 'Z'; ++letter) {
-            alphabetMapToIndex.put(String.valueOf(letter), counter);
+            alphabetMapToIndex.put(letter, counter);
             counter++;
         }
     }
 
     public String replaceLetterWithIndex(String input) {
         String result = "";
-        String convertedInput = input.toUpperCase();
+        char[] convertedInput = input.toUpperCase().toCharArray();
 
-        Iterator it = alphabetMapToIndex.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry entry = (Map.Entry)it.next();
-            if (convertedInput.contains(entry.getKey().toString())) {
-                System.out.print(entry.getKey().toString()+ " ");
-                result += entry.getValue().toString() + " ";
+        for (int x = 0;x < convertedInput.length;x++) {
+
+            for (Character item : getAlphabetMapToIndex().keySet()) {
+                if (convertedInput[x] == item ) {
+                    result += alphabetMapToIndex.get(item).toString() + " ";
+                }
             }
-            it.remove();
         }
-
-
-
-        return result;
+        return result.trim();
     }
 
-
-
-
-    public Map<String, Integer> getAlphabetMapToIndex() {
+    public Map<Character, Integer> getAlphabetMapToIndex() {
         return alphabetMapToIndex;
     }
 
-    private void setAlphabetMapToIndex(Map<String, Integer> alphabetMapToIndex) {
+    public void setAlphabetMapToIndex(Map<Character, Integer> alphabetMapToIndex) {
         this.alphabetMapToIndex = alphabetMapToIndex;
     }
-
 }
